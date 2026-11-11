@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Untuk Kamu</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:#05030d;color:#fff;font-family:'Playfair Display',Georgia,serif}
+.layer{position:fixed;inset:0;transition:opacity 1.6s}
+.hide{opacity:0;pointer-events:none}
+svg,canvas{position:absolute;inset:0;width:100%;height:100%}
+
+/* layar 1: tombol */
+#s1{z-index:10;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 40%,#2b1747,#05030d)}
+#go{font:600 5vmin 'Playfair Display',Georgia,serif;padding:2.2vmin 8vmin;border:0;border-radius:99px;background:linear-gradient(135deg,#f3d6ff,#d29bff);color:#2b1747;box-shadow:0 0 6vmin #c78bff88;cursor:pointer;animation:pl 1.6s infinite}
+@keyframes pl{50%{transform:scale(1.07)}}
+
+/* layar 2a: bunga */
+#fl{z-index:5;background:linear-gradient(180deg,#a9c0e6,#6d8fc4)}
+#bq{transform-origin:50% 100%;animation:sw 5s ease-in-out infinite alternate}
+@keyframes sw{from{transform:rotate(-1.2deg)}to{transform:rotate(1.2deg)}}
+.fl{transform-box:fill-box;transform-origin:center;animation:bl 1.4s both cubic-bezier(.2,1.4,.4,1)}
+@keyframes bl{from{transform:scale(0) rotate(-40deg);opacity:0}to{transform:none;opacity:1}}
+#for{position:absolute;bottom:10vmin;width:100%;text-align:center;font:600 9vmin 'Dancing Script',cursive;text-shadow:0 0 2vmin #fff8;opacity:0;transition:opacity 2.5s}
+
+/* layar 2b: galaksi */
+#gal{z-index:1;background:radial-gradient(ellipse at 50% 60%,#1a0b2e,#05030d 70%)}
+#ttl{position:absolute;top:6vmin;width:100%;text-align:center;opacity:0;transition:opacity 2.5s;z-index:2}
+#ttl small{display:block;font:3vmin Georgia,serif;letter-spacing:.8vmin;color:#c9a8ff;margin-bottom:1.5vmin}
+#ttl b{font-size:6.5vmin}
+#bt{top:auto;height:30%;bottom:0}
+#ring{position:absolute;left:50%;top:46%;width:0;height:0;animation:spin 60s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.cd{position:absolute;width:11vmin;height:11vmin;margin:-5.5vmin;border-radius:2vmin;background:#ffffffd0;display:flex;align-items:center;justify-content:center;font-size:6vmin;box-shadow:0 0 3vmin #c78bff66}
+#hrt{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);font-size:9vmin;animation:pl 1.6s infinite}
+.w{position:absolute;bottom:-6vmin;z-index:3;font-size:3.8vmin;color:#ff9fd6;text-shadow:0 0 2vmin #ff4fb0;white-space:nowrap;animation:up 9s linear forwards}
+@keyframes up{0%{transform:translateY(0);opacity:0}15%,85%{opacity:1}100%{transform:translateY(-115vh);opacity:0}}
+
+/* kartu akhir */
+#fin{position:absolute;z-index:6;left:50%;top:50%;transform:translate(-50%,-50%) scale(.9);width:min(88vw,430px);padding:6vmin 7vmin;border-radius:3vmin;background:#150a2ae6;border:1px solid #ffffff30;box-shadow:0 0 8vmin #b45cff55;opacity:0;pointer-events:none;transition:.9s}
+#fin.show{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:auto}
+#fin h2{margin:0 0 2vmin;font-size:clamp(20px,5.5vmin,30px)}
+#fin p{margin:1.5vmin 0;font:clamp(14px,3.6vmin,18px)/1.6 Georgia,serif;color:#e8dcff}
+.bt{display:block;width:100%;margin-top:1.5vmin;padding:1.8vmin;border-radius:99px;border:1px solid #ffffff40;background:transparent;color:#fff;font:clamp(14px,3.6vmin,17px) Georgia,serif;cursor:pointer}
+.bt.p{background:linear-gradient(135deg,#f3d6ff,#d29bff);color:#2b1747;border:0;font-weight:700}
+#ans{min-height:6vmin;margin-top:2vmin;color:#ffb3df}
+#again{margin-top:2vmin;background:none;border:0;color:#a98ad6;font:clamp(12px,3vmin,15px) Georgia,serif;text-decoration:underline;cursor:pointer}
+</style></head><body>
+
+<div id="gal" class="layer hide">
+  <canvas id="st"></canvas>
+  <div id="ttl"><small>SEBUAH GALAKSI KECIL</small><b>Tentang kita</b></div>
+  <div id="ring"></div><div id="hrt">💜</div>
+  <svg id="bt" viewBox="0 0 100 30" preserveAspectRatio="xMidYMax slice"></svg>
+  <div id="fin">
+    <h2>Satu hal terakhir</h2>
+    <p>rasanya lebih dari itu. Aku nyaman sama kamu.    <button class="bt p" onclick="ans('Makasih ya, kamu bikin aku seneng banget 🌸')"></button>
+    <button class="bt" onclick=")"></button>
+    <div id="ans"></div>
+    <button id="again" onclick="play()">Lihat lagi dari awal</button>
+  </div>
+</div>
+
+<div id="fl" class="layer hide">
+  <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet"><g id="bq"></g></svg>
+  <div id="for">Untuk Kamu</div>
+</div>
+
+<div id="s1" class="layer"><button id="go">klikme</button></div>
+<audio id="au" src="musik.mp3" loop preload="auto"></audio>
+
+<script>
+const $=s=>document.querySelector(s), sleep=ms=>new Promise(r=>setTimeout(r,ms));
+let run=0, timer=null;
+
+// bunga: kelopak berlapis
+function flower(x,y,r,h,rot){
+  let g=`<g transform="translate(${x} ${y}) rotate(${rot})">`;
+  for(let l=0;l<4;l++){
+    const n=6+l, s=r*(1-l*.22), lt=38+l*9;
+    for(let i=0;i<n;i++) g+=`<ellipse cx="0" cy="${-s*.5}" rx="${s*.38}" ry="${s*.55}" fill="hsl(${h} 70% ${lt}%)" stroke="hsl(${h} 60% ${lt-12}%)" stroke-width=".15" transform="rotate(${i*360/n+l*17})"/>`;
+  }
+  return g+`<circle r="${r*.12}" fill="#f5c04a"/></g>`;
+}
+const cols=[272,280,290,222,230,262];
+function bouquet(){
+  let s='';
+  for(let i=0;i<18;i++){
+    const a=Math.random()*6.283, d=Math.sqrt(Math.random())*26;
+    s+=`<g class="fl" style="animation-delay:${(i*.18).toFixed(2)}s">${flower(50+Math.cos(a)*d,44+Math.sin(a)*d*.95,7+Math.random()*5,cols[i%6],Math.random()*60)}</g>`;
+  }
+  return s;
+}
+function strip(){
+  let s='';
+  for(let i=0;i<11;i++) s+=`<g class="fl" style="animation-delay:${(i*.2).toFixed(2)}s">${flower(i*9.5,26+Math.random()*3,9+Math.random()*3,cols[i%6],Math.random()*60)}</g>`;
+  return s;
+}
+
+// kartu mengorbit
+(function(){
+  const em=['🌸','🌷','🌙','✨','💜','🦋','🌼','⭐','🎶'];
+  $('#ring').innerHTML=em.map((e,i)=>`<div class="cd" style="transform:rotate(${i*40}deg) translateX(${i%2?30:38}vmin)">${e}</div>`).join('');
+})();
+
+// bintang
+const cv=$('#st'), cx=cv.getContext('2d'); let S=[];
+function rs(){cv.width=innerWidth;cv.height=innerHeight;S=Array.from({length:150},()=>({x:Math.random()*cv.width,y:Math.random()*cv.height,r:Math.random()*1.4+.3,p:Math.random()*6.28}))}
+addEventListener('resize',rs); rs();
+(function f(t){
+  cx.clearRect(0,0,cv.width,cv.height); cx.fillStyle='#fff';
+  for(const s of S){cx.globalAlpha=.4+.6*Math.abs(Math.sin(t/900+s.p));cx.beginPath();cx.arc(s.x,s.y,s.r,0,6.283);cx.fill()}
+  requestAnimationFrame(f);
+})(0);
+
+// kata melayang
+const words=['Makasih udah ada 🌸','Nyaman banget sama kamu','Hari biasa jadi lebih enak','Ngobrol sama kamu nggak ada capeknya','Kamu itu spesial','Pelan-pelan, tapi serius '];
+let wi=0;
+function spawn(){
+  const w=document.createElement('div'); w.className='w'; w.textContent=words[wi++%words.length];
+  w.style.left=(5+Math.random()*45)+'vw'; $('#gal').appendChild(w); setTimeout(()=>w.remove(),9500);
+}
+
+function ans(t){$('#ans').textContent=t}
+
+async function play(){
+  const id=++run; clearInterval(timer);
+  $('#fin').classList.remove('show'); $('#ans').textContent='';
+  document.querySelectorAll('.w').forEach(e=>e.remove());
+  $('#gal').classList.add('hide'); $('#fl').classList.remove('hide');
+  $('#for').style.opacity=0; $('#ttl').style.opacity=0;
+  $('#bq').innerHTML=bouquet();
+  await sleep(3500); if(id!==run)return;
+  $('#for').style.opacity=1;
+  await sleep(5500); if(id!==run)return;
+  $('#bt').innerHTML=strip();
+  $('#gal').classList.remove('hide'); $('#fl').classList.add('hide');
+  $('#ttl').style.opacity=1;
+  spawn(); timer=setInterval(spawn,1800);
+  await sleep(20000); if(id!==run)return;
+  clearInterval(timer); $('#fin').classList.add('show');
+}
+
+$('#go').onclick=()=>{
+  const au=$('#au'); au.volume=0; au.play().catch(()=>{});
+  let v=0; const iv=setInterval(()=>{v=Math.min(1,v+.05);au.volume=v;if(v>=1)clearInterval(iv)},150);
+  $('#s1').classList.add('hide'); play();
+};
+</script></body></html>
