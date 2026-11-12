@@ -1,149 +1,222 @@
 <!DOCTYPE html>
-<html lang="id"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Untuk Kamu</title>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Untuk Kamu 💗</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box}
-html,body{margin:0;height:100%;overflow:hidden;background:#05030d;color:#fff;font-family:'Playfair Display',Georgia,serif}
-.layer{position:fixed;inset:0;transition:opacity 1.6s}
-.hide{opacity:0;pointer-events:none}
-svg,canvas{position:absolute;inset:0;width:100%;height:100%}
+:root{
+  --blush:#fff0f5; --petal:#ffd6e5; --rose:#ff6fa5; --berry:#c2185b; --ink:#5a2140; --white:#fffafc;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Quicksand',system-ui,sans-serif;color:var(--ink);line-height:1.7;
+  background:linear-gradient(180deg,var(--blush) 0%,#ffe3ee 100%);
+  min-height:100vh;overflow-x:hidden;
+}
+.hearts{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.hearts span{position:absolute;bottom:-40px;opacity:.5;animation:naik linear infinite}
+@keyframes naik{to{transform:translateY(-115vh) rotate(25deg);opacity:0}}
+main{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:0 20px 60px}
+.hero{min-height:88vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:18px}
+.hero .bunga{font-size:3rem;animation:goyang 3s ease-in-out infinite}
+@keyframes goyang{50%{transform:rotate(8deg) scale(1.08)}}
+h1{font-family:'Pacifico',cursive;font-weight:400;color:var(--berry);font-size:clamp(2.2rem,9vw,3.6rem);line-height:1.25}
+.hero p{max-width:30em;font-size:1.1rem}
+.btn{
+  font:inherit;font-weight:700;color:#fff;background:var(--rose);border:0;border-radius:999px;
+  padding:.85em 1.8em;cursor:pointer;box-shadow:0 6px 0 var(--berry);transition:transform .1s,box-shadow .1s;
+  text-decoration:none;display:inline-block;
+}
+.btn:active{transform:translateY(4px);box-shadow:0 2px 0 var(--berry)}
+.btn:focus-visible,canvas:focus-visible{outline:3px solid var(--berry);outline-offset:3px}
+section{margin-top:56px}
+h2{font-family:'Pacifico',cursive;font-weight:400;color:var(--berry);font-size:1.7rem;margin-bottom:14px;text-align:center}
+.surat{
+  background:var(--white);border-radius:28px 28px 28px 6px;padding:28px 24px;
+  box-shadow:0 10px 30px rgba(194,24,91,.12);border:2px dashed var(--petal);
+}
+.surat p+p{margin-top:14px}
+.surat .ttd{text-align:right;font-weight:700;color:var(--berry)}
+.game{background:var(--white);border-radius:28px;padding:18px;box-shadow:0 10px 30px rgba(194,24,91,.12)}
+.game .info{display:flex;justify-content:space-between;font-weight:700;margin-bottom:8px;font-size:.95rem}
+canvas{width:100%;height:auto;display:block;background:linear-gradient(#ffe9f2,#fff6fa);border-radius:18px;touch-action:manipulation;cursor:pointer}
+.petunjuk{text-align:center;font-size:.9rem;margin-top:10px;opacity:.8}
+.toast{min-height:1.8em;text-align:center;font-weight:600;color:var(--berry);margin-top:6px}
+.kalah{display:none;text-align:center;margin-top:14px;background:var(--blush);border-radius:20px;padding:20px 16px}
+.kalah.tampil{display:block;animation:muncul .35s ease-out}
+@keyframes muncul{from{transform:scale(.9);opacity:0}}
+.kalah h3{font-family:'Pacifico',cursive;font-weight:400;font-size:1.8rem;color:var(--berry)}
+.kalah .semangat{margin:8px 0}
+.kalah .rayu{font-style:italic;margin-bottom:14px}
+footer{text-align:center;margin-top:56px}
+footer p{margin-bottom:6px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="hearts" id="hearts" aria-hidden="true"></div>
 
-/* layar 1: tombol */
-#s1{z-index:10;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 40%,#2b1747,#05030d)}
-#go{font:600 5vmin 'Playfair Display',Georgia,serif;padding:2.2vmin 8vmin;border:0;border-radius:99px;background:linear-gradient(135deg,#f3d6ff,#d29bff);color:#2b1747;box-shadow:0 0 6vmin #c78bff88;cursor:pointer;animation:pl 1.6s infinite}
-@keyframes pl{50%{transform:scale(1.07)}}
+<main>
+  <header class="hero">
+    <div class="bunga" aria-hidden="true">🌸</div>
+    <h1>Untuk kamu yang senyumnya bikin hariku lebih cerah</h1>
+    <p>Aku bukan penyair, jadi aku bikin ini saja. Sedikit kata, sedikit permainan, dan banyak niat baik.</p>
+    <a class="btn" href="#surat">Baca dulu ya 💌</a>
+  </header>
 
-/* layar 2a: bunga */
-#fl{z-index:5;background:linear-gradient(180deg,#a9c0e6,#6d8fc4)}
-#bq{transform-origin:50% 100%;animation:sw 5s ease-in-out infinite alternate}
-@keyframes sw{from{transform:rotate(-1.2deg)}to{transform:rotate(1.2deg)}}
-.fl{transform-box:fill-box;transform-origin:center;animation:bl 1.4s both cubic-bezier(.2,1.4,.4,1)}
-@keyframes bl{from{transform:scale(0) rotate(-40deg);opacity:0}to{transform:none;opacity:1}}
-#for{position:absolute;bottom:10vmin;width:100%;text-align:center;font:600 9vmin 'Dancing Script',cursive;text-shadow:0 0 2vmin #fff8;opacity:0;transition:opacity 2.5s}
+  <section id="surat">
+    <h2>Sepucuk surat kecil</h2>
+    <div class="surat">
+      <p>Hai. Aku nggak mau muter-muter: aku suka sama kamu.</p>
+      <p>Bukan karena satu hal besar. Tapi cara kamu tertawa, cara kamu peduli sama hal-hal kecil, dan caramu membuat suasana jadi hangat tanpa berusaha. Hal-hal sederhana itu pelan-pelan jadi favoritku.</p>
+      <p>Aku nggak minta kamu jawab sekarang. Aku cuma ingin kamu tahu bahwa ada seseorang yang menghargai kamu apa adanya, dan akan senang kalau boleh mengenalmu lebih dekat, selangkah demi selangkah.</p>
+      <p class="ttd">Dari aku, yang diam-diam senyum tiap lihat namamu 💗</p>
+    </div>
+  </section>
 
-/* layar 2b: galaksi */
-#gal{z-index:1;background:radial-gradient(ellipse at 50% 60%,#1a0b2e,#05030d 70%)}
-#ttl{position:absolute;top:6vmin;width:100%;text-align:center;opacity:0;transition:opacity 2.5s;z-index:2}
-#ttl small{display:block;font:3vmin Georgia,serif;letter-spacing:.8vmin;color:#c9a8ff;margin-bottom:1.5vmin}
-#ttl b{font-size:6.5vmin}
-#bt{top:auto;height:30%;bottom:0}
-#ring{position:absolute;left:50%;top:46%;width:0;height:0;animation:spin 60s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.cd{position:absolute;width:11vmin;height:11vmin;margin:-5.5vmin;border-radius:2vmin;background:#ffffffd0;display:flex;align-items:center;justify-content:center;font-size:6vmin;box-shadow:0 0 3vmin #c78bff66}
-#hrt{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);font-size:9vmin;animation:pl 1.6s infinite}
-.w{position:absolute;bottom:-6vmin;z-index:3;font-size:3.8vmin;color:#ff9fd6;text-shadow:0 0 2vmin #ff4fb0;white-space:nowrap;animation:up 9s linear forwards}
-@keyframes up{0%{transform:translateY(0);opacity:0}15%,85%{opacity:1}100%{transform:translateY(-115vh);opacity:0}}
+  <section>
+    <h2>Main sebentar yuk</h2>
+    <div class="game">
+      <div class="info"><span>Skor: <b id="skor">0</b></span><span>Terbaik: <b id="terbaik">0</b></span></div>
+      <canvas id="kanvas" width="600" height="220" tabindex="0" aria-label="Game dino loncat. Tekan spasi atau ketuk layar untuk melompat."></canvas>
+      <div class="toast" id="toast" aria-live="polite"></div>
+      <p class="petunjuk" id="petunjuk">Ketuk layar atau tekan Spasi untuk mulai dan loncat 🦖</p>
 
-/* kartu akhir */
-#fin{position:absolute;z-index:6;left:50%;top:50%;transform:translate(-50%,-50%) scale(.9);width:min(88vw,430px);padding:6vmin 7vmin;border-radius:3vmin;background:#150a2ae6;border:1px solid #ffffff30;box-shadow:0 0 8vmin #b45cff55;opacity:0;pointer-events:none;transition:.9s}
-#fin.show{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:auto}
-#fin h2{margin:0 0 2vmin;font-size:clamp(20px,5.5vmin,30px)}
-#fin p{margin:1.5vmin 0;font:clamp(14px,3.6vmin,18px)/1.6 Georgia,serif;color:#e8dcff}
-.bt{display:block;width:100%;margin-top:1.5vmin;padding:1.8vmin;border-radius:99px;border:1px solid #ffffff40;background:transparent;color:#fff;font:clamp(14px,3.6vmin,17px) Georgia,serif;cursor:pointer}
-.bt.p{background:linear-gradient(135deg,#f3d6ff,#d29bff);color:#2b1747;border:0;font-weight:700}
-#ans{min-height:6vmin;margin-top:2vmin;color:#ffb3df}
-#again{margin-top:2vmin;background:none;border:0;color:#a98ad6;font:clamp(12px,3vmin,15px) Georgia,serif;text-decoration:underline;cursor:pointer}
-</style></head><body>
+      <div class="kalah" id="kalah">
+        <h3>Yaah kalah hihu 🥺</h3>
+        <p class="semangat" id="semangat"></p>
+        <p class="rayu" id="rayu"></p>
+        <button class="btn" id="ulang">Coba lagi, kamu pasti bisa!</button>
+      </div>
+    </div>
+  </section>
 
-<div id="gal" class="layer hide">
-  <canvas id="st"></canvas>
-  <div id="ttl"><small>SEBUAH GALAKSI KECIL</small><b>Tentang kita</b></div>
-  <div id="ring"></div><div id="hrt">💜</div>
-  <svg id="bt" viewBox="0 0 100 30" preserveAspectRatio="xMidYMax slice"></svg>
-  <div id="fin">
-    <h2>Satu hal terakhir</h2>
-    <p>rasanya lebih dari itu. Aku nyaman sama kamu.    <button class="bt p" onclick="ans('Makasih ya, kamu bikin aku seneng banget 🌸')"></button>
-    <button class="bt" onclick=")"></button>
-    <div id="ans"></div>
-    <button id="again" onclick="play()">Lihat lagi dari awal</button>
-  </div>
-</div>
-
-<div id="fl" class="layer hide">
-  <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet"><g id="bq"></g></svg>
-  <div id="for">Untuk Kamu</div>
-</div>
-
-<div id="s1" class="layer"><button id="go">klikme</button></div>
-<audio id="au" src="musik.mp3" loop preload="auto"></audio>
+  <footer>
+    <p>Menang atau kalah, kamu tetap juara di mataku.</p>
+    <p>Terima kasih sudah mampir dan baca sampai sini 🌷</p>
+  </footer>
+</main>
 
 <script>
-const $=s=>document.querySelector(s), sleep=ms=>new Promise(r=>setTimeout(r,ms));
-let run=0, timer=null;
-
-// bunga: kelopak berlapis
-function flower(x,y,r,h,rot){
-  let g=`<g transform="translate(${x} ${y}) rotate(${rot})">`;
-  for(let l=0;l<4;l++){
-    const n=6+l, s=r*(1-l*.22), lt=38+l*9;
-    for(let i=0;i<n;i++) g+=`<ellipse cx="0" cy="${-s*.5}" rx="${s*.38}" ry="${s*.55}" fill="hsl(${h} 70% ${lt}%)" stroke="hsl(${h} 60% ${lt-12}%)" stroke-width=".15" transform="rotate(${i*360/n+l*17})"/>`;
-  }
-  return g+`<circle r="${r*.12}" fill="#f5c04a"/></g>`;
-}
-const cols=[272,280,290,222,230,262];
-function bouquet(){
-  let s='';
-  for(let i=0;i<18;i++){
-    const a=Math.random()*6.283, d=Math.sqrt(Math.random())*26;
-    s+=`<g class="fl" style="animation-delay:${(i*.18).toFixed(2)}s">${flower(50+Math.cos(a)*d,44+Math.sin(a)*d*.95,7+Math.random()*5,cols[i%6],Math.random()*60)}</g>`;
-  }
-  return s;
-}
-function strip(){
-  let s='';
-  for(let i=0;i<11;i++) s+=`<g class="fl" style="animation-delay:${(i*.2).toFixed(2)}s">${flower(i*9.5,26+Math.random()*3,9+Math.random()*3,cols[i%6],Math.random()*60)}</g>`;
-  return s;
-}
-
-// kartu mengorbit
+/* Hati melayang di latar */
 (function(){
-  const em=['🌸','🌷','🌙','✨','💜','🦋','🌼','⭐','🎶'];
-  $('#ring').innerHTML=em.map((e,i)=>`<div class="cd" style="transform:rotate(${i*40}deg) translateX(${i%2?30:38}vmin)">${e}</div>`).join('');
+  var box=document.getElementById('hearts'),ic=['💗','💖','🌸','💕','🌷'];
+  for(var i=0;i<16;i++){
+    var s=document.createElement('span');
+    s.textContent=ic[i%ic.length];
+    s.style.left=Math.random()*100+'%';
+    s.style.fontSize=(14+Math.random()*18)+'px';
+    s.style.animationDuration=(9+Math.random()*10)+'s';
+    s.style.animationDelay=(-Math.random()*14)+'s';
+    box.appendChild(s);
+  }
 })();
 
-// bintang
-const cv=$('#st'), cx=cv.getContext('2d'); let S=[];
-function rs(){cv.width=innerWidth;cv.height=innerHeight;S=Array.from({length:150},()=>({x:Math.random()*cv.width,y:Math.random()*cv.height,r:Math.random()*1.4+.3,p:Math.random()*6.28}))}
-addEventListener('resize',rs); rs();
-(function f(t){
-  cx.clearRect(0,0,cv.width,cv.height); cx.fillStyle='#fff';
-  for(const s of S){cx.globalAlpha=.4+.6*Math.abs(Math.sin(t/900+s.p));cx.beginPath();cx.arc(s.x,s.y,s.r,0,6.283);cx.fill()}
-  requestAnimationFrame(f);
-})(0);
+/* Kata-kata */
+var semangat=[
+  'Tenang, tinggal coba lagi. Yang penting kamu sudah berani mulai!',
+  'Kalah itu cuma jeda. Tarik napas, senyum, lalu lompat lagi.',
+  'Hampir banget tadi! Kamu makin jago tiap percobaan.',
+  'Nggak apa-apa jatuh sebentar. Kamu tetap hebat kok.',
+  'Semangat ya! Pelan-pelan juga sampai, yang penting nggak menyerah.'
+];
+var rayu=[
+  'Kalau game ini ada skornya, senyummu pasti skor tertinggi.',
+  'Dino aja jatuh bangun, apalagi aku yang lagi belajar bikin kamu nyaman.',
+  'Semoga harimu seindah warna pink di halaman ini.',
+  'Kamu nggak perlu sempurna. Aku suka kamu yang apa adanya.',
+  'Apa pun yang terjadi hari ini, kamu layak bahagia.'
+];
+var pujian=['Mantap! 💗','Keren banget kamu! 🌸','Terus, jangan berhenti! ✨','Wah, jago! 💕','Hebat! Aku ikut senyum 😊'];
+function acak(a){return a[Math.floor(Math.random()*a.length)]}
 
-// kata melayang
-const words=['Makasih udah ada 🌸','Nyaman banget sama kamu','Hari biasa jadi lebih enak','Ngobrol sama kamu nggak ada capeknya','Kamu itu spesial','Pelan-pelan, tapi serius '];
-let wi=0;
-function spawn(){
-  const w=document.createElement('div'); w.className='w'; w.textContent=words[wi++%words.length];
-  w.style.left=(5+Math.random()*45)+'vw'; $('#gal').appendChild(w); setTimeout(()=>w.remove(),9500);
+/* Game */
+var c=document.getElementById('kanvas'),x=c.getContext('2d');
+var W=c.width,H=c.height,tanah=H-34;
+var elSkor=document.getElementById('skor'),elBest=document.getElementById('terbaik'),
+    elToast=document.getElementById('toast'),elKalah=document.getElementById('kalah'),
+    elPet=document.getElementById('petunjuk');
+var dino,rintangan,kec,skor,best=0,jalan=false,mulai=false,hitung,jeda,terakhir,toastT;
+
+function reset(){
+  dino={x:50,y:tanah,vy:0,ukuran:44};
+  rintangan=[];kec=5;skor=0;hitung=0;jeda=80;elSkor.textContent=0;
+  elToast.textContent='';elKalah.classList.remove('tampil');
 }
-
-function ans(t){$('#ans').textContent=t}
-
-async function play(){
-  const id=++run; clearInterval(timer);
-  $('#fin').classList.remove('show'); $('#ans').textContent='';
-  document.querySelectorAll('.w').forEach(e=>e.remove());
-  $('#gal').classList.add('hide'); $('#fl').classList.remove('hide');
-  $('#for').style.opacity=0; $('#ttl').style.opacity=0;
-  $('#bq').innerHTML=bouquet();
-  await sleep(3500); if(id!==run)return;
-  $('#for').style.opacity=1;
-  await sleep(5500); if(id!==run)return;
-  $('#bt').innerHTML=strip();
-  $('#gal').classList.remove('hide'); $('#fl').classList.add('hide');
-  $('#ttl').style.opacity=1;
-  spawn(); timer=setInterval(spawn,1800);
-  await sleep(20000); if(id!==run)return;
-  clearInterval(timer); $('#fin').classList.add('show');
+function lompat(){
+  if(!mulai){mulai=true;jalan=true;reset();terakhir=performance.now();requestAnimationFrame(loop);elPet.textContent='Loncat dari kaktus ya! 🌵';return}
+  if(jalan&&dino.y>=tanah){dino.vy=-13.2}
 }
-
-$('#go').onclick=()=>{
-  const au=$('#au'); au.volume=0; au.play().catch(()=>{});
-  let v=0; const iv=setInterval(()=>{v=Math.min(1,v+.05);au.volume=v;if(v>=1)clearInterval(iv)},150);
-  $('#s1').classList.add('hide'); play();
-};
-</script></body></html>
+function kalah(){
+  jalan=false;
+  if(Math.floor(skor)>best){best=Math.floor(skor);elBest.textContent=best}
+  document.getElementById('semangat').textContent=acak(semangat);
+  document.getElementById('rayu').textContent='“'+acak(rayu)+'”';
+  elKalah.classList.add('tampil');
+  gambar();
+}
+function loop(t){
+  if(!jalan)return;
+  var d=Math.min((t-terakhir)/16.67,3);terakhir=t;
+  /* fisika */
+  dino.vy+=0.75*d;dino.y+=dino.vy*d;
+  if(dino.y>tanah){dino.y=tanah;dino.vy=0}
+  /* rintangan */
+  hitung+=d;
+  if(hitung>=jeda){
+    rintangan.push({x:W+10,l:26,t:34+Math.random()*10});
+    hitung=0;jeda=(60+Math.random()*60)*(5/kec)+35;
+  }
+  for(var i=rintangan.length-1;i>=0;i--){
+    var o=rintangan[i];o.x-=kec*d;
+    if(o.x<-40)rintangan.splice(i,1);
+    /* tabrakan dengan kotak yang sedikit lebih kecil */
+    var dx1=dino.x+8,dx2=dino.x+dino.ukuran-8,dy2=dino.y-4,
+        ox1=o.x+5,ox2=o.x+o.l-5,oy1=tanah-o.t+6;
+    if(dx2>ox1&&dx1<ox2&&dy2>oy1){kalah();return}
+  }
+  var lama=Math.floor(skor);
+  skor+=0.12*d;kec=Math.min(5+skor/60,11);
+  var baru=Math.floor(skor);
+  elSkor.textContent=baru;
+  if(baru!==lama&&baru>0&&baru%50===0){
+    elToast.textContent=acak(pujian);
+    clearTimeout(toastT);toastT=setTimeout(function(){elToast.textContent=''},1800);
+  }
+  gambar();
+  requestAnimationFrame(loop);
+}
+function gambar(){
+  x.clearRect(0,0,W,H);
+  x.font='26px serif';x.textBaseline='alphabetic';x.globalAlpha=.6;
+  x.fillText('☁️',90+((-skor*1.2)%700+700)%700-60,60);
+  x.fillText('☁️',380+((-skor*1.8)%700+700)%700-60,95);
+  x.globalAlpha=1;
+  x.strokeStyle='#ff9fc3';x.lineWidth=3;x.beginPath();x.moveTo(0,tanah+2);x.lineTo(W,tanah+2);x.stroke();
+  if(rintangan)rintangan.forEach(function(o){
+    x.font=(o.t+6)+'px serif';x.fillText('🌵',o.x-3,tanah+4);
+  });
+  if(dino){x.font=dino.ukuran+'px serif';x.fillText('🦖',dino.x,dino.y+4)}
+  if(!mulai){
+    x.fillStyle='#c2185b';x.font='700 18px Quicksand,sans-serif';x.textAlign='center';
+    x.fillText('Ketuk untuk mulai 💗',W/2,H/2-10);x.textAlign='start';
+  }
+}
+function pencet(e){e.preventDefault();lompat()}
+c.addEventListener('pointerdown',pencet);
+document.addEventListener('keydown',function(e){
+  if(e.code==='Space'||e.code==='ArrowUp'){
+    if(document.activeElement&&document.activeElement.tagName==='BUTTON'&&!mulai)return;
+    e.preventDefault();lompat();
+  }
+});
+document.getElementById('ulang').addEventListener('click',function(){
+  reset();jalan=true;mulai=true;terakhir=performance.now();requestAnimationFrame(loop);c.focus({preventScroll:true});
+});
+reset();gambar();
+</script>
+</body>
+</html>
