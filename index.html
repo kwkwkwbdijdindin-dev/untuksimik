@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Untuk Zimik - dibuat oleh mikosa</title>
+<style>
+:root{--pink:#ff8fc7;--pink2:#ffd3ea;--blue:#7cc8ff;--blue2:#d6efff;--ink:#5a3a6b;--card:#ffffffcc}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Trebuchet MS',system-ui,sans-serif;color:var(--ink);
+background:linear-gradient(160deg,var(--pink2),var(--blue2));min-height:100vh;overflow-x:hidden;transition:background .6s}
+body.malam{--ink:#f1e6ff;--card:#2b2347cc;background:linear-gradient(160deg,#2a1f4d,#16305a)}
+body.malam h1{color:#ffb3dc}body.malam .card h2,body.malam .by,body.malam footer{color:#9fd8ff}
+.wrap{max-width:720px;margin:auto;padding:16px}
+header{text-align:center;padding:20px 10px}
+.doll{width:130px;height:130px;margin:0 auto 10px;border-radius:50%;background:#fff;
+border:5px solid var(--pink);box-shadow:0 6px 20px #ff8fc788;animation:float 3s ease-in-out infinite;overflow:hidden}
+.eye{animation:blink 4s infinite;transform-origin:center;transform-box:fill-box}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.08)}}
+@keyframes float{50%{transform:translateY(-8px)}}
+h1{font-size:clamp(1.7rem,7vw,2.6rem);color:#e0559f;min-height:1.3em}
+.by{color:#3d8fd1;font-weight:bold;margin-top:4px}
+.badge{display:inline-block;margin-top:10px;padding:7px 16px;border-radius:999px;font-size:.85rem;font-weight:bold;color:#fff;
+background:linear-gradient(90deg,var(--pink),var(--blue),var(--pink));background-size:200% 100%;animation:shine 3s linear infinite}
+@keyframes shine{to{background-position:200% 0}}
+.card{background:var(--card);border-radius:22px;padding:18px;margin:16px 0;
+box-shadow:0 6px 18px #7cc8ff55;border:2px dashed var(--pink)}
+.card h2{color:#3d8fd1;margin-bottom:10px;font-size:1.2rem}
+input{width:100%;padding:12px;border-radius:14px;border:2px solid var(--blue);font-size:1rem;margin-bottom:10px;outline:none}
+button{background:linear-gradient(135deg,var(--pink),#ff6fb5);color:#fff;border:0;border-radius:999px;
+padding:11px 20px;font-size:1rem;font-weight:bold;cursor:pointer;margin:4px 4px 4px 0;box-shadow:0 4px 10px #ff8fc788}
+button.b{background:linear-gradient(135deg,var(--blue),#4aa8f0)}
+button:active{transform:scale(.95)}
+.hasil{margin-top:10px;line-height:1.6;font-weight:bold;min-height:24px}
+#quote{font-size:1.15rem;min-height:90px;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.6;padding:8px;transition:opacity .3s}
+#vmain{width:100%;max-height:70vh;border-radius:16px;background:#000;border:3px solid var(--blue)}
+canvas{width:100%;background:#fff;border-radius:14px;border:3px solid var(--blue);touch-action:manipulation}
+#over{display:none;text-align:center;margin-top:10px;font-weight:bold}
+#over .hi{font-size:1.5rem;color:#e0559f}
+.fall{position:fixed;bottom:-30px;pointer-events:none;animation:up linear forwards;z-index:30}
+@keyframes up{to{transform:translateY(-110vh) rotate(40deg);opacity:0}}
+.jejak{position:fixed;pointer-events:none;z-index:60;font-size:14px;animation:pudar .8s forwards}
+@keyframes pudar{to{opacity:0;transform:translateY(18px) scale(.4)}}
+#modal{position:fixed;inset:0;background:#0006;display:none;align-items:center;justify-content:center;z-index:70;padding:20px}
+#modal .box{background:#fff;color:#5a3a6b;border-radius:24px;padding:24px;max-width:420px;line-height:1.7;text-align:center;border:4px solid var(--pink)}
+.cert{border:4px double var(--blue)!important;background:linear-gradient(#fff,#fff4fa)!important}
+.cert h3{color:#e0559f;letter-spacing:2px}
+footer{text-align:center;padding:20px;color:#3d8fd1;font-weight:bold}
+/* kuis */
+.opsi{display:block;width:100%;text-align:left;margin:6px 0;background:linear-gradient(135deg,var(--blue),#4aa8f0)}
+/* toples */
+#daftarHarapan{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px}
+.bintik{background:#fff;color:#5a3a6b;border:2px solid var(--pink);border-radius:14px;padding:5px 10px;font-size:.9rem}
+/* gerbang */
+#gerbang{position:fixed;inset:0;z-index:80;display:flex;flex-direction:column;align-items:center;justify-content:center;
+text-align:center;padding:20px;background:linear-gradient(160deg,var(--pink2),var(--blue2));color:#5a3a6b;transition:opacity .8s,transform .8s}
+#gerbang.tutup{opacity:0;transform:scale(1.15);pointer-events:none}
+#gerbang h1{margin:10px 0}
+#gerbang p{margin:8px 0 18px;line-height:1.6}
+#btnBuka{font-size:1.2rem;padding:15px 32px;animation:denyut 1.6s ease-in-out infinite}
+@keyframes denyut{50%{transform:scale(1.08)}}
+#web2{display:none}
+</style>
+</head>
+<body>
+
+<!-- ===== WEBSITE PERTAMA ===== -->
+<div id="gerbang">
+  <div class="doll">
+    <svg viewBox="0 0 100 100" width="100%" height="100%">
+      <circle cx="50" cy="50" r="50" fill="#d6efff"/>
+      <ellipse cx="22" cy="30" rx="14" ry="16" fill="#ff8fc7"/>
+      <ellipse cx="78" cy="30" rx="14" ry="16" fill="#ff8fc7"/>
+      <circle cx="50" cy="55" r="34" fill="#ffe3cf"/>
+      <path d="M17 50Q50 8 83 50Q50 30 17 50Z" fill="#ff8fc7"/>
+      <ellipse class="eye" cx="37" cy="58" rx="5" ry="7" fill="#4a3358"/>
+      <ellipse class="eye" cx="63" cy="58" rx="5" ry="7" fill="#4a3358"/>
+      <circle cx="39" cy="55" r="2" fill="#fff"/><circle cx="65" cy="55" r="2" fill="#fff"/>
+      <ellipse cx="27" cy="68" rx="6" ry="4" fill="#ff9fc9" opacity=".7"/>
+      <ellipse cx="73" cy="68" rx="6" ry="4" fill="#ff9fc9" opacity=".7"/>
+      <path d="M43 71Q50 78 57 71" stroke="#c44a83" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M44 22l6-8 6 8z" fill="#7cc8ff"/>
+    </svg>
+  </div>
+  <h1>Hai, Zimik! ✨</h1>
+  <p>Ada hadiah kecil yang dibuat khusus untukmu.<br>Hanya 1 di dunia.</p>
+  <button id="btnBuka" onclick="buka()">🎁 Ketuk untuk membuka</button>
+  <div class="by" style="margin-top:18px">🌸 dibuat oleh mikosa 🌸</div>
+</div>
+
+<!-- ===== WEBSITE KEDUA ===== -->
+<div id="web2" class="wrap">
+
+<header>
+  <div class="doll">
+    <svg viewBox="0 0 100 100" width="100%" height="100%">
+      <circle cx="50" cy="50" r="50" fill="#d6efff"/>
+      <ellipse cx="22" cy="30" rx="14" ry="16" fill="#ff8fc7"/>
+      <ellipse cx="78" cy="30" rx="14" ry="16" fill="#ff8fc7"/>
+      <circle cx="50" cy="55" r="34" fill="#ffe3cf"/>
+      <path d="M17 50Q50 8 83 50Q50 30 17 50Z" fill="#ff8fc7"/>
+      <ellipse class="eye" cx="37" cy="58" rx="5" ry="7" fill="#4a3358"/>
+      <ellipse class="eye" cx="63" cy="58" rx="5" ry="7" fill="#4a3358"/>
+      <circle cx="39" cy="55" r="2" fill="#fff"/><circle cx="65" cy="55" r="2" fill="#fff"/>
+      <ellipse cx="27" cy="68" rx="6" ry="4" fill="#ff9fc9" opacity=".7"/>
+      <ellipse cx="73" cy="68" rx="6" ry="4" fill="#ff9fc9" opacity=".7"/>
+      <path d="M43 71Q50 78 57 71" stroke="#c44a83" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M44 22l6-8 6 8z" fill="#7cc8ff"/>
+    </svg>
+  </div>
+  <h1 id="judul"></h1>
+  <div class="by">🌸 dibuat oleh mikosa 🌸</div>
+  <div id="salam" style="margin-top:6px;font-weight:bold"></div>
+  <div class="badge">✨ Edisi Tunggal: hanya 1 di dunia ✨</div>
+</header>
+
+<div class="card">
+  <h2>🎬 Video untukmu</h2>
+  <video id="vmain" src="video23.mp4" loop playsinline preload="auto" controls></video>
+  <p id="vinfo" style="margin-top:8px;font-size:.9rem"></p>
+  <button class="b" onclick="$('vmain').play()">Putar lagi ▶️</button>
+</div>
+
+<div class="card">
+  <h2>🌟 Halo, Zimik!</h2>
+  <p style="line-height:1.7">Website ini dibuat khusus untukmu. Tidak ada salinannya, tidak ada kembarannya. Hanya satu di seluruh dunia, dan itu milikmu.</p>
+  <button onclick="sertifikat()">Sertifikat keaslian 🏅</button>
+  <button class="b" onclick="pelukan()">Pelukan virtual 🤗</button>
+</div>
+
+<div class="card">
+  <h2>✉️ Kata-kata untukmu</h2>
+  <div id="quote">Tekan tombol di bawah ya 🌸</div>
+  <button onclick="kata()">Kata baru 🌷</button>
+  <button class="b" onclick="surat()">Buka surat ✉️</button>
+  <button onclick="hujan()">Hujan bunga 🌸</button>
+</div>
+
+<div class="card">
+  <h2>🔮 Ramalan hari ini</h2>
+  <button onclick="ramal()">Lihat ramalanku ✨</button>
+  <div class="hasil" id="ramalan"></div>
+</div>
+
+<div class="card">
+  <h2>🧠 Kuis: Seberapa hebat kamu?</h2>
+  <div id="kuis"></div> 
+</div>
+
+<div class="card">
+  <h2>🦖 Game Dino Loncat</h2>
+  <p style="margin-bottom:8px">Tap layar atau tekan Spasi untuk loncat. Skor: <b id="skor">0</b> | Terbaik: <b id="best">0</b></p>
+  <canvas id="c" width="600" height="200"></canvas>
+  <div id="over">
+    <div class="hi">hihu 😝 Zimik kalah!</div>
+    <p id="moti" style="margin:8px 0"></p>
+    <button onclick="mulai()">Coba lagi 💪</button>
+  </div>
+  <button id="startBtn" onclick="mulai()">Mulai main 🎮</button>
+</div>
+
+<div class="card">
+  <h2>🫙 Toples harapan</h2>
+  <input id="harapan" placeholder="Tulis satu harapanmu...">
+  <button onclick="simpanHarapan()">Masukkan ke toples 🌠</button>
+  <button class="b" onclick="kosongkan()">Kosongkan</button>
+  <div id="daftarHarapan"></div>
+</div>
+
+<div class="card">
+  <h2>🎁 Fitur kejutan</h2>
+  <button onclick="konfeti()">Konfeti 🎉</button>
+  <button class="b" onclick="tema()">Ganti warna 🌈</button>
+  <button onclick="malam()">Mode malam 🌙</button>
+  <button class="b" id="btnMusik" onclick="musik()">Musik kotak 🎵</button>
+  <button onclick="doa()">Doa dan harapan 🌠</button>
+</div>
+
+<footer>Dibuat dengan semangat oleh mikosa untuk Zimik ✨<br><small>Edisi 1 dari 1</small></footer>
+</div>
+
+<div id="modal" onclick="this.style.display='none'"><div class="box" id="isiBox"></div></div>
+
+<script>
+const $=id=>document.getElementById(id);
+const NAMA='Zimik';
+const acak=a=>a[Math.floor(Math.random()*a.length)];
+
+/* ===== Pindah dari website pertama ke kedua + putar video ===== */
+function buka(){
+  $('web2').style.display='block';
+  const v=$('vmain');v.loop=true;v.currentTime=0;
+  const p=v.play();
+  if(p&&p.catch)p.catch(()=>{$('vinfo').textContent='Tekan tombol putar jika video belum berjalan.';});
+  $('gerbang').classList.add('tutup');
+  setTimeout(()=>{$('gerbang').style.display='none';},850);
+  window.scrollTo(0,0);
+  const j=new Date().getHours();
+  const s=j<11?'Selamat pagi':j<15?'Selamat siang':j<18?'Selamat sore':'Selamat malam';
+  $('salam').textContent=s+', '+NAMA+'! Semoga harimu menyenangkan 😊';
+  ketik('Untuk '+NAMA+' ✨');
+  hujan(25);
+}
+$('vmain').addEventListener('error',()=>{$('vinfo').textContent='video23.mp4 tidak ditemukan. Pastikan file ada di folder yang sama dengan index.html.';});
+$('vmain').addEventListener('ended',()=>{$('vmain').currentTime=0;$('vmain').play();});
+function ketik(t){
+  const e=$('judul');e.textContent='';let i=0;
+  const iv=setInterval(()=>{e.textContent+=t[i++];if(i>=t.length)clearInterval(iv);},110);
+}
+
+/* ===== Kata-kata, surat, sertifikat, doa, pelukan ===== */
+const kataList=[
+"Kamu itu spesial, "+NAMA+". Dunia jadi lebih hangat karena ada kamu. 🌷",
+"Kalau hari ini terasa berat, ingat: kamu sudah hebat bisa sampai sini. 💪",
+"Senyummu itu obat paling manjur untuk orang di sekitarmu. 😊",
+"Terima kasih sudah jadi teman yang selalu ada, bahkan saat aku lagi susah. 🌼",
+"Kamu tidak harus sempurna untuk dihargai. Jadi dirimu saja sudah cukup. 🌸",
+"Semoga semua lelahmu dibayar dengan hal-hal indah yang tak terduga. ✨",
+"Pelan-pelan saja, yang penting kamu tidak berhenti. Aku bangga sama kamu. 🌟",
+"Kamu pantas bahagia, hari ini, besok, dan seterusnya. 🌈",
+"Kalau dunia bikin kamu capek, istirahatlah di sini. Aku ada. 🫂",
+"Cuma ada satu "+NAMA+" di dunia ini, dan itu membuatmu tak tergantikan. 💫"
+];
+function kata(){
+  const q=$('quote');q.style.opacity=0;
+  setTimeout(()=>{q.textContent=acak(kataList);q.style.opacity=1;},250);
+  hujan(8);
+}
+function tampil(html,cls){
+  $('isiBox').className='box '+(cls||'');
+  $('isiBox').innerHTML=html+'<br><small>(tap untuk menutup)</small>';
+  $('modal').style.display='flex';
+}
+function surat(){
+  tampil('<h2 style="color:#e0559f">✉️ Untuk '+NAMA+'</h2><p>Terima kasih sudah jadi bagian cerita hidupku. Kalau kadang kamu merasa sendirian, ingat ada yang selalu mendoakan kamu. Kamu berharga, kamu kuat, dan kamu dihargai.<br><br>Tetap tersenyum ya 🌸<br><b style="color:#3d8fd1">dari mikosa</b></p>');
+  hujan(20);
+}
+function sertifikat(){
+  tampil('<h3>SERTIFIKAT KEASLIAN</h3><p style="margin:8px 0">Dengan ini dinyatakan bahwa website ini adalah <b>satu-satunya di dunia</b>, dibuat khusus untuk:</p><h2 style="color:#e0559f">'+NAMA+'</h2><p style="margin-top:8px">No. Seri: <b>1 / 1</b><br>Pembuat: <b style="color:#3d8fd1">mikosa</b></p>','cert');
+  hujan(25);
+}
+function doa(){
+  tampil('<h2 style="color:#3d8fd1">🌠 Harapan untuk '+NAMA+'</h2><p>Semoga sehat selalu, rezekinya lancar, cita-citanya tercapai, dan setiap harinya dipenuhi tawa. Apa pun yang kamu perjuangkan, semoga jalannya dimudahkan.</p>');
+  hujan(20);
+}
+function pelukan(){
+  tampil('<div style="font-size:4rem">🤗</div><h2 style="color:#e0559f">klick aku</h2><p>Kamu tidak sendirian, ya!</p>');
+  hujan(30);
+}
+
+/* ===== Ramalan ===== */
+const ramalList=[
+"Hari ini ada kabar baik yang datang tanpa kamu duga. 🌟",
+"Seseorang diam-diam bangga padamu hari ini. 🌸",
+"Keberuntungan kecil menantimu sore nanti. 🍀",
+"Idemu hari ini akan membuat orang lain tersenyum. 💡",
+"Istirahat sebentar, setelah itu energimu penuh lagi. ☕",
+"Ada pintu baru yang akan terbuka untukmu. 🚪✨",
+"Makanan enak akan menghampirimu hari ini. 🍰"
+];
+function ramal(){$('ramalan').textContent=acak(ramalList);hujan(10);}
+
+/* ===== Kuis ===== */
+const soal=[
+{q:'Kalau lagi capek, kamu biasanya...',o:['Tidur dulu','Dengar musik','Makan enak']},
+{q:'Kamu lebih suka suasana...',o:['Tenang','Ramai','Alam terbuka']},
+{q:'Kekuatan super pilihanmu?',o:['Terbang','Baca pikiran','Menghentikan waktu']}
+];
+const hasilKuis=[
+"Kamu itu pejuang yang tangguh dan penuh semangat! 💪",
+"Kamu pribadi hangat yang bikin orang nyaman di dekatmu. 🌷",
+"Kamu kreatif dan penuh kejutan, dunia butuh kamu! ✨"
+];
+let ks=0,skorKuis=[0,0,0];
+function tampilKuis(){
+  const k=$('kuis');
+  if(ks>=soal.length){
+    const i=skorKuis.indexOf(Math.max(...skorKuis));
+    k.innerHTML='<div class="hasil">Hasil: '+hasilKuis[i]+'</div><button onclick="ulangKuis()">Ulangi kuis 🔄</button>';
+    hujan(20);return;
+  }
+  k.innerHTML='<p><b>'+soal[ks].q+'</b></p>'+soal[ks].o.map((t,i)=>'<button class="opsi" onclick="jwb('+i+')">'+t+'</button>').join('');
+}
+function jwb(i){skorKuis[i]++;ks++;tampilKuis();}
+function ulangKuis(){ks=0;skorKuis=[0,0,0];tampilKuis();}
+tampilKuis();
+
+/* ===== Toples harapan ===== */
+let harapan=[];
+try{harapan=JSON.parse(localStorage.getItem('harapanZimik')||'[]');}catch(e){}
+function gambarHarapan(){
+  $('daftarHarapan').innerHTML=harapan.map(h=>'<span class="bintik">🌠 '+h.replace(/</g,'&lt;')+'</span>').join('');
+}
+function simpanHarapan(){
+  const t=$('harapan').value.trim();if(!t)return;
+  harapan.push(t);$('harapan').value='';
+  try{localStorage.setItem('harapanZimik',JSON.stringify(harapan));}catch(e){}
+  gambarHarapan();hujan(10);
+}
+function kosongkan(){
+  harapan=[];try{localStorage.removeItem('harapanZimik');}catch(e){}
+  gambarHarapan();
+}
+gambarHarapan();
+
+/* ===== Efek ===== */
+function hujan(n=25){
+  const em=['🌸','✨','🌼','⭐','🌷'];
+  for(let i=0;i<n;i++){
+    const h=document.createElement('div');h.className='fall';h.textContent=em[i%em.length];
+    h.style.left=Math.random()*100+'vw';h.style.fontSize=(16+Math.random()*22)+'px';
+    h.style.animationDuration=(3+Math.random()*3)+'s';h.style.animationDelay=Math.random()+'s';
+    document.body.appendChild(h);setTimeout(()=>h.remove(),7500);
+  }
+}
+function konfeti(){
+  const col=['#ff8fc7','#7cc8ff','#ffe066','#ffffff'];
+  for(let i=0;i<60;i++){
+    const d=document.createElement('div');d.className='fall';d.textContent='●';
+    d.style.color=col[i%4];d.style.left=Math.random()*100+'vw';d.style.fontSize='14px';
+    d.style.animationDuration=(2+Math.random()*3)+'s';document.body.appendChild(d);
+    setTimeout(()=>d.remove(),6000);
+  }
+}
+let tm=0;
+function tema(){
+  document.body.classList.remove('malam');
+  const p=[['#ffd3ea','#d6efff'],['#e6d6ff','#d6fff1'],['#fff0c9','#ffd3ea'],['#d6efff','#e6d6ff']];
+  tm=(tm+1)%p.length;
+  document.body.style.background='linear-gradient(160deg,'+p[tm][0]+','+p[tm][1]+')';
+}
+function malam(){
+  document.body.style.background='';
+  document.body.classList.toggle('malam');
+}
+/* jejak bintang */
+let tJejak=0;
+function jejak(e){
+  const n=Date.now();if(n-tJejak<60)return;tJejak=n;
+  const s=document.createElement('div');s.className='jejak';s.textContent=acak(['✨','⭐','🌸']);
+  s.style.left=e.clientX+'px';s.style.top=e.clientY+'px';
+  document.body.appendChild(s);setTimeout(()=>s.remove(),800);
+}
+document.addEventListener('pointermove',jejak);
+
+/* ===== Musik kotak (Web Audio) ===== */
+let ac=null,musikIv=null;
+const nada=[523.25,587.33,659.25,783.99,880,783.99,659.25,587.33];
+function bunyi(f){
+  const o=ac.createOscillator(),g=ac.createGain();
+  o.type='sine';o.frequency.value=f;
+  g.gain.setValueAtTime(.15,ac.currentTime);
+  g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+.9);
+  o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+.9);
+}
+function musik(){
+  const b=$('btnMusik');
+  if(musikIv){clearInterval(musikIv);musikIv=null;b.textContent='Musik kotak 🎵';return;}
+  ac=ac||new (window.AudioContext||window.webkitAudioContext)();
+  let i=0;
+  musikIv=setInterval(()=>{bunyi(nada[i%nada.length]*(Math.random()<.2?2:1));i++;},450);
+  b.textContent='Matikan musik 🔇';
+}
+
+/* ===== Game Dino ===== */
+const cv=$('c'),ctx=cv.getContext('2d');
+const GY=170;
+let dino,obs,speed,score,best=0,run=false,frame=0,raf;
+try{best=+localStorage.getItem('best')||0;}catch(e){}
+$('best').textContent=best;
+const moti=[
+"Jatuh itu biasa, bangkit lagi yang luar biasa! 💪",
+"Gagal sekali bukan berarti selesai. Coba lagi, kamu pasti bisa! 🌟",
+"Setiap pemenang pernah kalah dulu. Semangat! 🔥",
+"Pelan-pelan juga sampai. Jangan menyerah ya! 🌈",
+"Kamu hebat sudah berani mencoba. Ayo ulangi! ✨"
+];
+function mulai(){
+  cancelAnimationFrame(raf);
+  dino={x:40,y:GY-40,w:36,h:40,vy:0,on:true};
+  obs=[];speed=5;score=0;frame=0;run=true;
+  $('over').style.display='none';$('startBtn').style.display='none';
+  loop();
+}
+function loncat(){if(run&&dino.on){dino.vy=-12.5;dino.on=false;}}
+document.addEventListener('keydown',e=>{
+  if(e.code==='Space'&&run){e.preventDefault();loncat();}
+});
+cv.addEventListener('pointerdown',e=>{e.preventDefault();loncat();});
+function gambar(){
+  ctx.clearRect(0,0,600,200);
+  ctx.fillStyle='#d6efff';ctx.fillRect(0,GY,600,3);
+  ctx.fillStyle='#ffe3f1';
+  [[(100-frame*0.3)%700,40],[(380-frame*0.3)%700,60]].forEach(([x,y])=>{
+    const xx=x<-60?x+700:x;
+    ctx.beginPath();ctx.arc(xx,y,14,0,7);ctx.arc(xx+16,y+4,12,0,7);ctx.arc(xx-16,y+4,10,0,7);ctx.fill();
+  });
+  ctx.fillStyle='#ff8fc7';
+  ctx.fillRect(dino.x,dino.y+8,dino.w,dino.h-8);
+  ctx.fillRect(dino.x+14,dino.y,26,20);
+  ctx.fillStyle='#7cc8ff';ctx.fillRect(dino.x+2,dino.y+12,8,6);
+  ctx.fillStyle='#fff';ctx.fillRect(dino.x+28,dino.y+4,7,7);
+  ctx.fillStyle='#4a3358';ctx.fillRect(dino.x+31,dino.y+6,3,3);
+  const kaki=dino.on&&Math.floor(frame/6)%2;
+  ctx.fillStyle='#ff6fb5';
+  ctx.fillRect(dino.x+6,dino.y+dino.h-2,8,kaki?2:6);
+  ctx.fillRect(dino.x+22,dino.y+dino.h-2,8,kaki?6:2);
+  ctx.fillStyle='#4aa8f0';
+  obs.forEach(o=>{
+    ctx.fillRect(o.x,GY-o.h,o.w,o.h);
+    ctx.fillRect(o.x-6,GY-o.h+10,6,5);
+    ctx.fillRect(o.x+o.w,GY-o.h+18,6,5);
+  });
+}
+function loop(){
+  if(!run)return;
+  frame++;
+  dino.vy+=0.65;dino.y+=dino.vy;
+  if(dino.y>=GY-dino.h){dino.y=GY-dino.h;dino.vy=0;dino.on=true;}
+  if(frame%Math.max(55,95-Math.floor(score/80))===0&&Math.random()<.9){
+    obs.push({x:620,w:14+Math.random()*10,h:26+Math.random()*24});
+  }
+  obs.forEach(o=>o.x-=speed);
+  obs=obs.filter(o=>o.x>-30);
+  speed=5+score/150;
+  score++;
+  $('skor').textContent=Math.floor(score/5);
+  for(const o of obs){
+    if(dino.x+dino.w-6>o.x&&dino.x+6<o.x+o.w&&dino.y+dino.h>GY-o.h){kalah();return;}
+  }
+  gambar();
+  raf=requestAnimationFrame(loop);
+}
+function kalah(){
+  run=false;gambar();
+  const s=Math.floor(score/5);
+  if(s>best){best=s;$('best').textContent=best;try{localStorage.setItem('best',best);}catch(e){}}
+  $('moti').textContent=acak(moti);
+  $('over').style.display='block';
+}
+dino={x:40,y:GY-40,w:36,h:40,vy:0,on:true};obs=[];gambar();
+</script>
+</body>
+</html>
