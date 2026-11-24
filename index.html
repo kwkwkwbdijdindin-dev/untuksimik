@@ -4,24 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- 503 = "layanan sementara tidak tersedia"; baik untuk SEO jika diatur di server -->
-  <title>Website Telah Dimatikan</title>
+  <title>Database Sedang Diubah</title>
   <style>
     :root {
-      --bg: #f3f6f8;
+      --bg: #f8f4f1;
       --card: #ffffff;
-      --text: #1f2d3a;
-      --muted: #5b6b7a;
-      --accent: #2f6f8f;
-      --line: #dbe3e9;
+      --text: #2d2420;
+      --muted: #6b5d55;
+      --accent: #b3541e;
+      --line: #e6dcd5;
     }
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg: #141b21;
-        --card: #1c252d;
-        --text: #e8eef2;
-        --muted: #9fb0bd;
-        --accent: #6fb5d4;
-        --line: #2b3844;
+        --bg: #1a1512;
+        --card: #241d19;
+        --text: #f1e9e4;
+        --muted: #b8a89f;
+        --accent: #e8905a;
+        --line: #3a2f29;
       }
     }
     * { box-sizing: border-box; }
@@ -47,7 +47,7 @@
       text-align: center;
     }
     .icon { font-size: 44px; margin-bottom: 8px; }
-    h1 { font-size: 1.5rem; margin: 0 0 12px; }
+    h1 { font-size: 1.5rem; margin: 0 0 12px; color: var(--accent); }
     p { margin: 0 0 14px; color: var(--muted); }
     .info {
       text-align: left;
@@ -57,18 +57,23 @@
       font-size: .95rem;
     }
     .info strong { color: var(--text); }
-    a { color: var(--accent); }
-    footer { margin-top: 18px; font-size: .85rem; color: var(--muted); }
+    .info ul { margin: 8px 0 0; padding-left: 20px; color: var(--muted); }
   </style>
 </head>
 <body>
   <main>
-    <div class="icon" aria-hidden="true">🔒</div>
-    <h1>Website Ini Telah Dimatikan oleh Pemilik</h1>
-    <p>Terima kasih telah berkunjung. Website ini telah dimatikan oleh pemiliknya.</p>
-    <p>Seluruh kode dan isi website telah dihapus secara permanen, sehingga tidak dapat diakses atau dipulihkan kembali.</p>
-    <p>Mohon maaf atas ketidaknyamanan ini dan terima kasih atas pengertiannya.</p>
+    <div class="icon" aria-hidden="true">🛠️</div>
+    <h1>Database Sedang Diubah</h1>
+    <p>Pemilik sedang mengubah database dan kode isi website ini.</p>
+    <p>Selama proses berlangsung, mungkin ada masalah pada tampilan, seperti bagian halaman yang tidak muncul atau data yang hilang sementara.</p>
+    <div class="info">
+      <strong>Yang bisa Anda lakukan:</strong>
+      <ul>
+        <li>Muat ulang halaman beberapa saat lagi.</li>
+        <li>Hubungi pemilik website jika tampilan tetap bermasalah.</li>
+      </ul>
+    </div>
+    <p style="margin-top:18px;font-size:.85rem;">Mohon maaf atas ketidaknyamanan ini.</p>
   </main>
 </body>
-</html>
 </html>
